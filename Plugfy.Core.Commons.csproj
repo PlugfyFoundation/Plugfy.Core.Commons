@@ -5,7 +5,48 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <ApplicationIcon>plugfy.core.ico</ApplicationIcon>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <SignAssembly>False</SignAssembly>
+    <Title>Plugfy.Core.Commons</Title>
+    <Authors>Willian Patrick dos Santos</Authors>
+    <Company>Plugfy Org</Company>
+    <Copyright>Plugfy Org</Copyright>
+    <PackageProjectUrl>https://plugfy.org</PackageProjectUrl>
+    <PackageIcon>plugfy-core-logo-128x128.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/PlugfyFoundation/Plugfy.Core.Commons</RepositoryUrl>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <IncludeSymbols>False</IncludeSymbols>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>2</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <WarningLevel>2</WarningLevel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="plugfy.core.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\Plugfy Org Repos\Plugfy.Core.Commons\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\Plugfy Org Repos\Plugfy.Core.Commons\plugfy-core-logo-128x128.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\Plugfy Org Repos\Plugfy.Core.Commons\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
