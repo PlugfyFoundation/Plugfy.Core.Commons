@@ -10,9 +10,8 @@ on:
   workflow_dispatch: 
 
 jobs:
-  build:
+  build_publish:
     runs-on: ubuntu-latest
-
     steps:
       - name: 🛠️ Checkout code
         uses: actions/checkout@v4
@@ -25,47 +24,11 @@ jobs:
       - name: 📦 Restore dependencies
         run: dotnet restore
 
-      - name: 🏗️ Build project
+      - name: 🏗️ Build project (Ensures DLLs exist)
         run: dotnet build --configuration Release --no-restore
 
-      # Uncomment if you have tests
-      # - name: ✅ Run tests
-      #   run: dotnet test --configuration Release --no-build --verbosity normal
-
-      - name: 📦 Save build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-output
-          path: |
-            Plugfy.Core.Commons/bin/Release/net8.0/
-          retention-days: 1  # Keep it for 1 day to avoid expiration issues
-
-  publish:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: 🛠️ Checkout code
-        uses: actions/checkout@v4
-
-      - name: 🔄 Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '8.0.x'
-
-      - name: 🔎 Debug - List available artifacts (before downloading)
-        run: ls -R
-
-      - name: 📥 Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: build-output
-          path: Plugfy.Core.Commons/bin/Release/net8.0/
-
-      - name: 🔎 Debug - Check downloaded artifacts
-        run: ls -R Plugfy.Core.Commons/bin/Release/net8.0/
-
       - name: 🚀 Generate NuGet package with metadata
-        run: dotnet pack Plugfy.Core.Commons/Plugfy.Core.Commons.csproj --configuration Release --output nupkg --no-build /p:Version=1.0.${{ github.run_number }}
+        run: dotnet pack --configuration Release --output nupkg --no-build /p:Version=1.0.${{ github.run_number }}
 
       - name: 🔑 Publish to NuGet
         run: dotnet nuget push "nupkg/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }} --skip-duplicate
