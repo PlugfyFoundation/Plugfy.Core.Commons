@@ -35,17 +35,16 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-        - name: 🛠️ Checkout code
-          uses: actions/checkout@v4
-
-        - name: 🔄 Setup .NET
-          uses: actions/setup-dotnet@v3
-          with:
-            dotnet-version: '8.0.x'
-
-        - name: 🚀 Generate NuGet package with metadata
-          run: dotnet pack --configuration Release --output nupkg /p:Version=1.0.${{ github.run_number }}
-
-        - name: 🔑 Publish to NuGet
-          run: dotnet nuget push nupkg/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }} --skip-duplicate
-
+      - name: 🛠️ Checkout code
+        uses: actions/checkout@v4
+    
+      - name: 🔄 Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+    
+      - name: 🚀 Generate NuGet package with metadata
+        run: dotnet pack "Plugfy.Core.Commons/Plugfy.Core.Commons.csproj" --configuration Release --output nupkg /p:Version=1.0.${{ github.run_number }}
+    
+      - name: 🔑 Publish to NuGet
+        run: dotnet nuget push "nupkg/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }} --skip-duplicate
