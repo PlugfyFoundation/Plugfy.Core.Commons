@@ -1,5 +1,5 @@
 ﻿/.vs
 /bin
 /obj
-/bin/Release
 /nupkg
+/Properties/PublishProfiles
